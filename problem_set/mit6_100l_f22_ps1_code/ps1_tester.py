@@ -14,53 +14,53 @@ tests_passed = 0
 a_tests = 0
 b_tests = 0
 c_tests = 0
-#if student_a:
-#	print('----PART A Test 1----')
-#	print('RUNNING with yearly_salary: 112000, portion_saved: .17, cost_of_dream_home: 750000')
-#	yearly_salary = 112000
-#	portion_saved = .17
-#	cost_of_dream_home = 750000
-#	actual = 97
-#	student = student_a.part_a(yearly_salary, portion_saved, cost_of_dream_home)
-#	if actual != student: 
-#		print('FAILED')
-#		print("Part A test 1 failed. Correct answer:", actual, "Your answer:", student)
-#	else: 
-#		print('PASSED')
-#		tests_passed += 1
-#		a_tests +=1
-#		
-#	print('----PART A Test 2----')
-#	print('RUNNING with yearly_salary: 65000, portion_saved: .20, cost_of_dream_home: 400000')
-#	yearly_salary = 65000
-#	portion_saved = .20
-#	cost_of_dream_home = 400000
-#	actual = 79
-#	student = student_a.part_a(yearly_salary, portion_saved, cost_of_dream_home)
-#	if actual != student: 
-#		print("FAILED")
-#		print("Part A test 2 failed. Correct answer:", actual, "Your answer:", student)	
-#	else: 
-#		print("PASSED")
-#		tests_passed += 1
-#		a_tests +=1
+if student_a:
+	print('----PART A Test 1----')
+	print('RUNNING with yearly_salary: 112000, portion_saved: .17, cost_of_dream_home: 750000')
+	yearly_salary = 112000
+	portion_saved = .17
+	cost_of_dream_home = 750000
+	actual = 97
+	student = student_a.part_a(yearly_salary, portion_saved, cost_of_dream_home)
+	if actual != student: 
+		print('FAILED')
+		print("Part A test 1 failed. Correct answer:", actual, "Your answer:", student)
+	else: 
+		print('PASSED')
+		tests_passed += 1
+		a_tests +=1
+		
+	print('----PART A Test 2----')
+	print('RUNNING with yearly_salary: 65000, portion_saved: .20, cost_of_dream_home: 400000')
+	yearly_salary = 65000
+	portion_saved = .20
+	cost_of_dream_home = 400000
+	actual = 79
+	student = student_a.part_a(yearly_salary, portion_saved, cost_of_dream_home)
+	if actual != student: 
+		print("FAILED")
+		print("Part A test 2 failed. Correct answer:", actual, "Your answer:", student)	
+	else: 
+		print("PASSED")
+		tests_passed += 1
+		a_tests +=1
 
-#	print('----PART A Test 3----')
-#	print('RUNNING with yearly_salary: 350000, portion_saved: .3, cost_of_dream_home: 10000000')
-#	yearly_salary = 350000
-#	portion_saved = .3
-#	cost_of_dream_home = 10000000
-#	actual = 189
-#	student = student_a.part_a(yearly_salary, portion_saved, cost_of_dream_home)
-#	if actual != student:
-#		print("FAILED") 
-#		print("Part A test 3 failed. Correct answer:", actual, "Your answer:", student)
+	print('----PART A Test 3----')
+	print('RUNNING with yearly_salary: 350000, portion_saved: .3, cost_of_dream_home: 10000000')
+	yearly_salary = 350000
+	portion_saved = .3
+	cost_of_dream_home = 10000000
+	actual = 189
+	student = student_a.part_a(yearly_salary, portion_saved, cost_of_dream_home)
+	if actual != student:
+		print("FAILED") 
+		print("Part A test 3 failed. Correct answer:", actual, "Your answer:", student)
 
-#	else:
-#		print("PASSED") 
-#		tests_passed += 1
-#		a_tests += 1
-
+	else:
+		print("PASSED") 
+		tests_passed += 1
+		a_tests += 1
+''
 if student_b:
 	print('----PART B Test 1----')
 	print('RUNNING with yearly_salary: 110000, portion_saved: .15, cost_of_dream_home: 750000, semi_annual_raise: .03')
