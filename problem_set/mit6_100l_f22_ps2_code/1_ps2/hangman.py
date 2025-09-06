@@ -46,6 +46,11 @@ def choose_word(wordlist):
 wordlist = load_words()
 
 def count_word(s, list):
+	"""
+	s : string, character that you want to count
+	list: list the character reside
+	return: integer value of character count inside list
+	"""
 	count = 0
 	for i in list:
 		if i == s:
@@ -148,8 +153,35 @@ def hangman(secret_word, with_help):
     Follows the other limitations detailed in the problem write-up.
     """
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
-
+    word_count = len(secret_word)
+    guess = 10
+    letters_guessed = []
+    vowels = 'aiueo'
+    print('Welcome to Hangman!')
+    print(f'I am thinking of a word that is {word_count} letter long')
+    
+    while guess > 0:
+    	progress = lambda: get_word_progress(secret_word, letters_guessed)
+    	available = lambda: get_available_letters(letters_guessed)
+    	print('----------')
+    	print(f'You have {guess} left.')
+    	print(f'Available letters: {available()}')
+    	letter = input('Please guess a letter: ').lower()
+    	if with_help and letter == '!':
+    		print()
+    	elif not letter.isalpha():
+    		print(f'Oops! That is not a valid letter. Please input a letter from the alphabet: {progress()}')
+    	elif letter not in secret_word:
+    			if letter in vowels:
+    				guess -= 2
+    			else:
+    				guess -= 1
+    			print(f'Oops! That letter is not in my word: {progress()}')
+    	elif letter in letters_guessed:
+    		print(f'Oops! You\'ve already guessed that letter: {progress()}')
+    	else:
+    			letters_guessed.append(letter)
+    			print(f'Good guess: {progress()}')
 
 
 # When you've completed your hangman function, scroll down to the bottom
@@ -158,9 +190,10 @@ def hangman(secret_word, with_help):
 if __name__ == "__main__":
     # To test your game, uncomment the following three lines.
 
-    # secret_word = choose_word(wordlist)
-    # with_help = False
-    # hangman(secret_word, with_help)
+    #secret_word = choose_word(wordlist)
+    secret_word = 'hello'
+    with_help = False
+    hangman(secret_word, with_help)
 
     # After you complete with_help functionality, change with_help to True
     # and try entering "!" as a guess!
