@@ -57,6 +57,13 @@ def count_word(s, list):
 			count += 1
 	return count
 
+def count_uniq(s):
+	letter = s[0]
+	for i in s:
+		if i not in letter:
+			letter += i
+	return len(letter)
+
 def has_player_won(secret_word, letters_guessed):
     """
     secret_word: string, the lowercase word the user is guessing
@@ -111,6 +118,14 @@ def get_available_letters(letters_guessed):
     		word += s
     return word
 
+def helper(secret_word,list):
+	choose_from = ""
+	for s in secret_word:
+		if s in list:
+			choose_from += s
+	ind = random.randint(0,len(choose_from)-1)
+	reveal_letter = choose_from[ind]
+	return reveal_letter
 
 
 def hangman(secret_word, with_help):
@@ -160,15 +175,21 @@ def hangman(secret_word, with_help):
     print('Welcome to Hangman!')
     print(f'I am thinking of a word that is {word_count} letter long')
     
-    while guess > 0:
-    	progress = lambda: get_word_progress(secret_word, letters_guessed)
+    while True:
+    	progress =lambda: get_word_progress(secret_word, letters_guessed)
     	available = lambda: get_available_letters(letters_guessed)
     	print('----------')
-    	print(f'You have {guess} left.')
-    	print(f'Available letters: {available()}')
+    	if progress() == secret_word or guess == 0:
+    		break
+    	print(f'You have {guess} guesses left.')
+    	print(f'Available Letters: {available()}')
     	letter = input('Please guess a letter: ').lower()
     	if with_help and letter == '!':
-    		print()
+    		revealed_letter = helper(secret_word,available())
+    		letters_guessed.append(revealed_letter)
+    		print(f'Letter revealed: {revealed_letter}')
+    		print(progress())
+    		guess -= 3
     	elif not letter.isalpha():
     		print(f'Oops! That is not a valid letter. Please input a letter from the alphabet: {progress()}')
     	elif letter not in secret_word:
@@ -177,11 +198,19 @@ def hangman(secret_word, with_help):
     			else:
     				guess -= 1
     			print(f'Oops! That letter is not in my word: {progress()}')
+    			letters_guessed.append(letter)
     	elif letter in letters_guessed:
     		print(f'Oops! You\'ve already guessed that letter: {progress()}')
     	else:
     			letters_guessed.append(letter)
     			print(f'Good guess: {progress()}')
+    			
+    if guess != 0:
+    	total = (guess + 4 * count_uniq(secret_word)) + (3*len(secret_word))
+    	print('Congratulations, you won!')
+    	print(f'Your total score for this game is: {total}')
+    else:
+    	print(f'Sorry, you ran out of guesses. The word was {secret_word}.')
 
 
 # When you've completed your hangman function, scroll down to the bottom
@@ -190,9 +219,8 @@ def hangman(secret_word, with_help):
 if __name__ == "__main__":
     # To test your game, uncomment the following three lines.
 
-    #secret_word = choose_word(wordlist)
-    secret_word = 'hello'
-    with_help = False
+    secret_word = choose_word(wordlist)
+    with_help = True
     hangman(secret_word, with_help)
 
     # After you complete with_help functionality, change with_help to True
@@ -205,5 +233,4 @@ if __name__ == "__main__":
     # It doesn't matter if the lines above are commented in or not
     # when you submit your pset. However, please run ps2_student_tester.py
     # one more time before submitting to make sure all the tests pass.
-    pass
 
