@@ -215,8 +215,20 @@ def get_tfidf(tf_file_path, idf_file_paths):
 
         * TF-IDF(i) = TF(i) * IDF(i)
         """
-    pass
-
+    tf_dict = get_tf(tf_file_path)
+    idf_dict = get_idf(idf_file_paths)
+    keylist = [k for k in tf_dict.keys() if k in idf_dict]
+    tf_idf_list = []
+    for k in keylist:
+    	v = tf_dict[k] * idf_dict[k]
+    	tf_idf_list.append((k,v))
+    tf_idf_list.sort(key=lambda x: x[1])
+  #  word = [0.00]
+#    test = []
+#    for i in tf_idf_list:
+#    	if i[1] in word:
+#    		test.append(i)
+    return tf_idf_list
 
 if __name__ == "__main__":
     pass
@@ -270,11 +282,13 @@ if __name__ == "__main__":
     # print(most_frequent)      # should print ["hello", "world"]
 
     ## Tests Problem 5: Find TF-IDF
-   # tf_text_file = 'tests/student_tests/hello_world.txt'
+    #tf_text_file = 'tests/student_tests/hello_world.txt'
+    #tf_text_file =  'tests/student_tests/test1a.txt'
     #idf_text_files = ['tests/student_tests/hello_world.txt', 'tests/student_tests/hello_friends.txt']
+    #idf_text_files = ['tests/student_tests/test1a.txt', 'tests/student_tests/test1b.txt', 'tests/student_tests/test2a.txt', 'tests/student_tests/test2b.txt', 'tests/student_tests/test3a.txt']
     #tf = get_tf(tf_text_file)
-    #idf = get_idf(idf_text_files)
-    # tf_idf = get_tfidf(tf_text_file, idf_text_files)
+#    idf = get_idf(idf_text_files)
+#    tf_idf = get_tfidf(tf_text_file, idf_text_files)
     #print(tf)     # should print {'hello': 0.6666666666666666, 'world': 0.3333333333333333}
     #print(idf)    # should print {'hello': 0.0, 'world': 0.3010299956639812, 'friends': 0.3010299956639812}
-    # print(tf_idf) # should print [('hello', 0.0), ('world', 0.10034333188799373)]
+    #print(tf_idf) # should print [('hello', 0.0), ('world', 0.10034333188799373)]
