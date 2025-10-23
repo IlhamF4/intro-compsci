@@ -15,7 +15,7 @@ class Message(object):
         a Message object has one attribute:
             the message text
         '''
-        raise NotImplementedError  # delete this line and replace with your code here
+        self.text = input_text
 
     def __repr__(self):
         '''
@@ -32,7 +32,7 @@ class Message(object):
 
         Returns: (string) the message text
         '''
-        raise NotImplementedError  # delete this line and replace with your code here
+        return self.text
 
     def shift_char(self, char, shift):
         '''
@@ -44,8 +44,9 @@ class Message(object):
 
         Returns: (string) the shifted character with ASCII value in the range [32, 126]
         '''
-        raise NotImplementedError  # delete this line and replace with your code here
-
+        num = 32 + ((ord(char)+shift - 32 )% 95)
+        return chr(num)
+        	
     def apply_pad(self, pad):
         '''
         Used to calculate the ciphertext produced by applying a one time pad to the message text.
@@ -57,8 +58,10 @@ class Message(object):
 
         Returns: (string) The ciphertext produced using the one time pad
         '''
-        raise NotImplementedError  # delete this line and replace with your code here
-
+        changed = ""
+        for i in range(len(self.text)):
+        	changed = changed + self.shift_char(self.text[i],pad[i])
+        return changed
 
 class PlaintextMessage(Message):
     def __init__(self, input_text, pad=None):
