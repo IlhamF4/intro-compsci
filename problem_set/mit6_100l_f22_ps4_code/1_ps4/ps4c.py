@@ -41,7 +41,7 @@ def is_word(word_list, word):
     >>> is_word(word_list, 'asdf') returns
     False
     '''
-    word = word.strip(" !@#$%^&*()-_+={}[]|\:;'<>?,./\"").lower()
+    word = word.strip(" !@#$%^&*()-_+={}[]|'\':;'<>?,./\"").lower()
     return word in word_list
 
 
@@ -80,8 +80,23 @@ def decrypt_message_try_pads(ciphertext, pads):
 
     Returns: (PlaintextMessage) A message with the decrypted ciphertext and the best pad
     '''
-    raise NotImplementedError  # delete this line and replace with your code here
+    wordlist = load_words(WORDLIST_FILENAME)
+    dict_pad = {}
+    for i in pads:
+    	plaintext = ciphertext.decrypt_message(i)
+    	textlist = plaintext.get_text().split(" ")
+    	count = 0
+    	for j in textlist:
+    		if is_word(wordlist,j):
+    			count += 1
+    	dict_pad[count] = i
+    pad = dict_pad[max(dict_pad)]
+    return ciphertext.decrypt_message(pad)
 
+#m = [[22, 3, 32, 36, 41, 66], [31, 3, 92, 42, 49, 56], [58, 56, 75, 15, 1, 93], [5, 10, 2, 3, 0, 2], [21, 92, 39, 23, 89, 2], [87, 69, 69, 11, 76, 62]]
+
+#t = decrypt_message_try_pads("Monoo#",m)
+#print(t)
 
 def decode_story():
     '''
@@ -91,12 +106,15 @@ def decode_story():
     Returns: (string) the decoded story
 
     '''
-    raise NotImplementedError  # delete this line and replace with your code here
+    story = get_story_string()
+    pads = get_story_pads()
+    ciphertext = ps4b.EncryptedMessage(story)
+    return decrypt_message_try_pads(ciphertext,pads).get_text()
 
 
 
 if __name__ == '__main__':
     # # Uncomment these lines to try running decode_story()
-    # story = decode_story()
-    # print("Decoded story: ", story)
+    story = decode_story()
+    print("Decoded story: ", story)
     pass
