@@ -71,7 +71,7 @@ def img_to_pix(filename):
                  in form L such as [60,66,72...] for BW image
     """
     img = Image.open(filename)
-    print(img.mode)
+    # print(img.mode)
     return list(img.getdata())
 
 
@@ -105,7 +105,10 @@ def filter(pixels_list, color):
     returns: list of pixels in same format as earlier functions,
     transformed by matrix multiplication
     """
-    pass
+    cp = pixels_list[:]
+    for i in range(len(pixels_list)-1):
+        cp[i] = matrix_multiply(make_matrix(color),pixels_list[i])
+    return pixels_list
 
 
 def extract_end_bits(num_end_bits, pixel):
@@ -214,12 +217,12 @@ def main():
 
     # non_filtered_pixels = filter(pixels,'none')
     # im = pix_to_img(non_filtered_pixels, (width, height), 'RGB')
-    im = pix_to_img(tuple(pixels),(width, height),'RGB')
-    im.show()
+    # im = pix_to_img(tuple(pixels),(width, height),'RGB')
+    # im.show()
 
-    #red_filtered_pixels = filter(pixels,'red')
-    #im2 = pix_to_img(red_filtered_pixels,(width,height), 'RGB')
-    # im2.show()
+    red_filtered_pixels = filter(pixels,'red')
+    im2 = pix_to_img(red_filtered_pixels,(width,height), 'RGB')
+    im2.show()
 
     # Uncomment the following lines to test part 2
     #im = reveal_image('hidden1.bmp')
