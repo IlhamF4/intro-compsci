@@ -6,7 +6,7 @@
 
 from PIL import Image, ImageFont, ImageDraw
 import numpy
-#import matplotlib.pyplot as plt
+import os
 
 
 def make_matrix(color):
@@ -70,8 +70,9 @@ def img_to_pix(filename):
                  in form (R,G,B) such as [(0,0,0),(255,255,255),(38,29,58)...] for RGB image
                  in form L such as [60,66,72...] for BW image
     """
-    with Image.open(filename) as img:
-    	return list(img.getdata())
+    img = Image.open(filename)
+    print(img.mode)
+    return list(img.getdata())
 
 
 def pix_to_img(pixels_list, size, mode):
@@ -90,7 +91,9 @@ def pix_to_img(pixels_list, size, mode):
     returns:
         img: Image object made from list of pixels
     """
-    pass
+    img2 = Image.new(mode, size)
+    img2.putdata(pixels_list)
+    return img2
 
 
 def filter(pixels_list, color):
@@ -207,12 +210,12 @@ def main():
     im = Image.open('image_15.png')
     width, height = im.size
     pixels = img_to_pix('image_15.png')
-    print(pixels)
-    
-    #non_filtered_pixels = filter(pixels,'none')
-    #im = pix_to_img(non_filtered_pixels, (width, height), 'RGB')
-    #plt.imshow(im)
-    #plt.show()
+    # im.show()
+
+    # non_filtered_pixels = filter(pixels,'none')
+    # im = pix_to_img(non_filtered_pixels, (width, height), 'RGB')
+    im = pix_to_img(tuple(pixels),(width, height),'RGB')
+    im.show()
 
     #red_filtered_pixels = filter(pixels,'red')
     #im2 = pix_to_img(red_filtered_pixels,(width,height), 'RGB')
