@@ -6,7 +6,6 @@
 
 from PIL import Image, ImageFont, ImageDraw
 import numpy
-import os
 
 
 def make_matrix(color):
@@ -70,9 +69,7 @@ def img_to_pix(filename):
                  in form (R,G,B) such as [(0,0,0),(255,255,255),(38,29,58)...] for RGB image
                  in form L such as [60,66,72...] for BW image
     """
-    img = Image.open(filename)
-    # print(img.mode)
-    return list(img.getdata())
+    pass
 
 
 def pix_to_img(pixels_list, size, mode):
@@ -91,9 +88,7 @@ def pix_to_img(pixels_list, size, mode):
     returns:
         img: Image object made from list of pixels
     """
-    img2 = Image.new(mode, size)
-    img2.putdata(pixels_list)
-    return img2
+    pass
 
 
 def filter(pixels_list, color):
@@ -105,11 +100,7 @@ def filter(pixels_list, color):
     returns: list of pixels in same format as earlier functions,
     transformed by matrix multiplication
     """
-    cp = pixels_list[:]
-    for i in range(len(pixels_list)-1):
-        cp[i] = matrix_multiply(make_matrix(color),pixels_list[i])
-    list_cp = [(int(x), int(y), int(z)) for x,y,z in cp]
-    return list_cp
+    pass
 
 
 def extract_end_bits(num_end_bits, pixel):
@@ -142,10 +133,7 @@ def extract_end_bits(num_end_bits, pixel):
     Returns:
         The num_end_bits of pixel, as an integer (BW) or tuple of integers (RGB).
     """
-    if type(pixel) == tuple:
-    	c = tuple([x%2**num_end_bits for x in pixel])
-    	return c
-    return pixel%(2**num_end_bits)
+    pass
 
 
 def reveal_bw_image(filename):
@@ -156,10 +144,7 @@ def reveal_bw_image(filename):
     Returns:
         result: an Image object containing the hidden image
     """
-    im = img_to_pix(filename)
-    new_pix = tuple([extract_end_bits(1,i) for i in im])
-    img = numpy.array(new_pix, dtype=numpy.uint8)
-    return Image.fromarray((img*255).astype(numpy.uint8), mode='L')
+    pass
 
 
 def reveal_color_image(filename):
@@ -213,23 +198,21 @@ def draw_kerb(filename, kerb):
 
 
 def main():
-    
+    pass
 
     # Uncomment the following lines to test part 1
 
-    im = Image.open('image_15.png')
-    width, height = im.size
-    pixels = img_to_pix('image_15.png')
+    #im = Image.open('image_15.png')
+    #width, height = im.size
+    #pixels = img_to_pix('image_15.png')
+
+    #non_filtered_pixels = filter(pixels,'none')
+    #im = pix_to_img(non_filtered_pixels, (width, height), 'RGB')
     # im.show()
 
-    # non_filtered_pixels = filter(pixels,'none')
-    # im = pix_to_img(non_filtered_pixels, (width, height), 'RGB')
-    # im = pix_to_img(tuple(pixels),(width, height),'RGB')
-    # im.show()
-
-    red_filtered_pixels = filter(pixels,'red')
-    im2 = pix_to_img(red_filtered_pixels,(width,height), 'RGB')
-    im2.show()
+    #red_filtered_pixels = filter(pixels,'red')
+    #im2 = pix_to_img(red_filtered_pixels,(width,height), 'RGB')
+    # im2.show()
 
     # Uncomment the following lines to test part 2
     #im = reveal_image('hidden1.bmp')
