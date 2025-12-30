@@ -159,7 +159,7 @@ def reveal_bw_image(filename):
     im = img_to_pix(filename)
     new_pix = tuple([extract_end_bits(1,i) for i in im])
     img = numpy.array(new_pix, dtype=numpy.uint8)
-    return Image.fromarray((img*255).astype(numpy.uint8), mode='L')
+    return Image.fromarray((img*255).astype(numpy.uint8).reshape(1000,2000), mode='L')
 
 
 def reveal_color_image(filename):
@@ -170,7 +170,11 @@ def reveal_color_image(filename):
     Returns:
         result: an Image object containing the hidden image
     """
-    pass
+    im = img_to_pix(filename)
+    new_pix = tuple([extract_end_bits(3,i) for i in im])
+    img = numpy.array(new_pix, dtype=numpy.uint8)
+    img = (img*(255/7)).astype(numpy.uint8)
+    return Image.fromarray(img.reshape(398,600,3), mode='RGB')
 
 
 def reveal_image(filename):
